@@ -14,9 +14,9 @@ import javax.swing.UIManager;
 
 import operations.Addition;
 import operations.Derivation;
-import operations.Division;
 import operations.Integration;
 import operations.Multiplication;
+import operations.Evaluate;
 import operations.Subtraction;
 
 public class GUI implements ActionListener {
@@ -28,16 +28,16 @@ public class GUI implements ActionListener {
 	public JButton addButton; // addition
 	public JButton subButton; // subtraction
 	public JButton mulButton; // multiplication
-	public JButton divButton; // division
-	public JButton powButton; // power
 	public JButton derButton; // derivation
 	public JButton intButton; // integration
+	public JButton evlButton; // evaluate
 	public JButton clrButton; // resetting
 	public JTextField inputP;
 	public JTextField inputn;
 	public JTextField inputQ;
 	public JTextField output;
 	public JTextField[] textPan;
+	public Color fgColor = UIManager.getColor("TextField.foreground");
 
 	public GUI() {
 		addButton = new JButton("Addition (+)");
@@ -49,11 +49,8 @@ public class GUI implements ActionListener {
 		mulButton = new JButton("Multiplication (*)");
 		mulButton.addActionListener(this);
 
-		divButton = new JButton("Division (/)");
-		divButton.addActionListener(this);
-
-		powButton = new JButton("Power n (^n)");
-		powButton.addActionListener(this);
+		evlButton = new JButton("Evaluate at n (x=n)");
+		evlButton.addActionListener(this);
 
 		derButton = new JButton("Derivation (d/dx)");
 		derButton.addActionListener(this);
@@ -66,23 +63,19 @@ public class GUI implements ActionListener {
 
 		buttonField = new JPanel();
 		buttonField.setVisible(true);
-		buttonField.setLayout(new GridLayout(8, 1));
+		buttonField.setLayout(new GridLayout(7, 1));
 		buttonField.add(addButton);
 		buttonField.add(subButton);
 		buttonField.add(mulButton);
-		buttonField.add(divButton);
-		buttonField.add(powButton);
 		buttonField.add(derButton);
 		buttonField.add(intButton);
+		buttonField.add(evlButton);
 		buttonField.add(clrButton);
 
 		inputP = new JTextField(300);
 		inputn = new JTextField(300);
 		inputQ = new JTextField(300);
-
 		output = new JTextField(300);
-
-		Color fgColor = UIManager.getColor("TextField.foreground");
 
 		textPan = new JTextField[4];
 		textPan[0] = new JTextField("P(x) = ", 10);
@@ -97,7 +90,7 @@ public class GUI implements ActionListener {
 
 		leftField = new JPanel();
 		leftField.setVisible(true);
-		leftField.setLayout(new GridLayout(8, 1));
+		leftField.setLayout(new GridLayout(7, 1));
 		leftField.add(new JPanel());
 		leftField.add(textPan[0]);
 		leftField.add(textPan[1]);
@@ -105,18 +98,16 @@ public class GUI implements ActionListener {
 		leftField.add(new JPanel());
 		leftField.add(textPan[3]);
 		leftField.add(new JPanel());
-		leftField.add(new JPanel());
 
 		ioField = new JPanel();
 		ioField.setVisible(true);
-		ioField.setLayout(new GridLayout(8, 1));
+		ioField.setLayout(new GridLayout(7, 1));
 		ioField.add(new JPanel());
 		ioField.add(inputP);
 		ioField.add(inputn);
 		ioField.add(inputQ);
 		ioField.add(new JPanel());
 		ioField.add(output);
-		ioField.add(new JPanel());
 		ioField.add(new JPanel());
 
 		window = new JFrame("Polynomial Calculator");
@@ -131,24 +122,25 @@ public class GUI implements ActionListener {
 
 	public void clearText() {
 		inputP.setText("");
+		inputn.setText("");
 		inputQ.setText("");
 		output.setText("");
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent click) {
+	public void actionPerformed(ActionEvent click) {   // Calling of the operations
 		if (click.getSource() == addButton) {
 			Addition.add();
 		} else if (click.getSource() == subButton) {
 			Subtraction.sub();
 		} else if (click.getSource() == mulButton) {
 			Multiplication.mul();
-		} else if (click.getSource() == divButton) {
-			Division.div();
 		} else if (click.getSource() == derButton) {
 			Derivation.der();
 		} else if (click.getSource() == intButton) {
 			Integration.Int();
+		} else if (click.getSource() == evlButton) {
+			Evaluate.evl();
 		} else if (click.getSource() == clrButton) {
 			clearText();
 		}

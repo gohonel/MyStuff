@@ -9,13 +9,13 @@ public class Integration extends Operations {
 		delPol(1);
 	}
 
-	public static double[] intOp(Polynom p) {
+	public static int[] intOp(Polynom p) {
 		int index;
-		double[] result;
-		result = new double[p.order + 1];
+		int[] result;
+		result = new int[p.order + 1];
 
 		for (index = 0; index < p.order; index++) {
-			result[index + 1] = p.coefficients[index] / (index + 1);
+			result[index + 1] = p.monoms.get(index).coefficient / (index + 1);
 		}
 
 		dispRes(result, p.order + 1, true);

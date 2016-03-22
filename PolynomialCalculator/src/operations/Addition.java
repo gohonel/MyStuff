@@ -10,8 +10,8 @@ public class Addition extends Operations {
 		delPol(2);
 	}
 
-	public static double[] addOp(Polynom p, Polynom q) {
-		double[] result;
+	public static int[] addOp(Polynom p, Polynom q) {
+		int[] result;
 		int min, max, index;
 
 		if (p.order > q.order) {
@@ -22,18 +22,17 @@ public class Addition extends Operations {
 			max = q.order;
 		}
 
-		result = new double[max];
+		result = new int[max];
 
 		for (index = 0; index < min; index++) {
-			result[index] = p.coefficients[index] + q.coefficients[index];
-			System.out.println(result[index] + " " + p.coefficients[index] + " " + q.coefficients[index]);
+			result[index] = p.monoms.get(index).coefficient + q.monoms.get(index).coefficient;
 		}
 
 		for (index = min; index < max; index++) {
 			if (p.order > q.order) {
-				result[index] = p.coefficients[index];
+				result[index] = p.monoms.get(index).coefficient;
 			} else {
-				result[index] = q.coefficients[index];
+				result[index] = q.monoms.get(index).coefficient;
 			}
 		}
 
